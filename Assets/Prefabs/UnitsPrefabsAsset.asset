@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e4b94f3bd84434d90eb27e0b73febd, type: 3}
+  m_Name: UnitsPrefabsAsset
+  m_EditorClassIdentifier: 
+  _unitPrefab: {fileID: 114929941075798572, guid: 60b938316c176ba409ad2c303ef4d9ac,
+    type: 2}
+  _prefabs:
+  - Id: unit_0
+    Prefab: {fileID: 1939874321076508, guid: 346d2e99f82aa124f9dabd5d2a65cc6a, type: 2}
+  - Id: rocket_0
+    Prefab: {fileID: 1386711637927826, guid: c2cb1db0121b2764ea8a7180b17f768f, type: 2}
