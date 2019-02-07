@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using Assets.Scripts.Common.EventAggregator;
-using Assets.Scripts.Common.UI;
-using Assets.Scripts.Game.Common;
+﻿using Assets.Scripts.Game.Common;
 using Assets.Scripts.Game.Events;
 using Assets.Scripts.Game.EventSystem;
 using Assets.Scripts.Game.UI.Controller;

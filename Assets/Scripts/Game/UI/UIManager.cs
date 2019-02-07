@@ -1,11 +1,5 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Common;
-using Assets.Scripts.Common.EventAggregator;
-using Assets.Scripts.Common.UI;
-using Assets.Scripts.Common.UI.Context;
+﻿using Assets.Scripts.Common.UI;
 using Assets.Scripts.Common.UI.Controller;
-using Assets.Scripts.Game.EventSystem;
-using UnityEngine;
 
 namespace Assets.Scripts.Game.UI
 {

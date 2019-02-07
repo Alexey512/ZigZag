@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Scripts.Common.EventAggregator;
-using Assets.Scripts.Game.EventSystem;
+﻿using Assets.Scripts.Game.EventSystem;
 using Assets.Scripts.Game.Model;
-using Assets.Scripts.Game.Units;
 using UnityEngine;
 
 namespace Assets.Scripts.Game.Events
