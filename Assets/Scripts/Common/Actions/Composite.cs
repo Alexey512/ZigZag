@@ -96,7 +96,8 @@ namespace Assets.Scripts.Common.Actions
 
 	        foreach (var child in _childs)
 	        {
-	            child.Update();
+                if (child.Status == ActionStatus.Running)
+	                child.Update();
             }
 	    }
 	}

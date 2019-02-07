@@ -1,23 +1,23 @@
 ﻿using System;
-using Game.Objects.Logic;
 
-namespace Game.Objects.Logics
+namespace Assets.Scripts.Common.Actions
 {
-	/*public class CustomActionExt: LogicAction
+	public class CustomAction: GameTask
 	{
-		private readonly Action<LogicAction> _action;
+		private readonly Action<ActionContext> _action;
 
-		public CustomActionExt(Action<LogicAction> action)
+		public CustomAction(Action<ActionContext> action)
 		{
 			_action = action;
 		}
 		protected override void OnStart()
 		{
-			_action?.Invoke(this);
+			_action?.Invoke(Context);
+            End(ActionStatus.Success);
 		}
 	}
 
-	public class CustomAction: LogicAction
+	/*public class CustomAction: LogicAction
 	{
 		private readonly Action<LogicContext> _action;
 

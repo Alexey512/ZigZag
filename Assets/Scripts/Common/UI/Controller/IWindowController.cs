@@ -7,6 +7,6 @@ namespace Assets.Scripts.Common.UI.Controller
 	{
 		Transform Owner { get; }
 
-		void Initialize(IWindowContext context);
+	    void Hide();
 	}
 }

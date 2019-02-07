@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: WindowPrefabsAsset
   m_EditorClassIdentifier: 
   _Prefabs:
-  - Id: leftPanel
-    Prefab: {fileID: 114513187685651484, guid: a313ac595758fc342b2ef96440edbb2d, type: 2}
+  - Id: startWindow
+    Prefab: {fileID: 114803668132797128, guid: f699d0ae9894e534f8d361e03f334bc1, type: 2}

@@ -13,27 +13,31 @@ namespace Assets.Scripts.Game
 {
 	public class GameBootstart: IGameBootstart
 	{
-		private readonly IUIManager _uiManager;
-
 		private readonly IEventsManager _eventsManager;
 
 		private readonly IInputManager _inputManager;
 
-		public GameBootstart(IUIManager uiManager, IEventsManager eventsManager, IInputManager inputManager)
+	    private readonly StartWindow.Factory _startWindow;
+
+	    private readonly ScoreWindow.Factory _scoreWindow;
+
+        public GameBootstart(IEventsManager eventsManager, IInputManager inputManager, StartWindow.Factory startWindow, ScoreWindow.Factory scoreWindow)
 		{
-			_uiManager = uiManager;
 			_eventsManager = eventsManager;
 			_inputManager = inputManager;
+		    _startWindow = startWindow;
+		    _scoreWindow = scoreWindow;
 
-			_inputManager.OnClick += OnSceneClick;
+            _inputManager.OnClick += OnSceneClick;
 		}
 
 		public void Startup()
 		{
-			_uiManager.ShowWindow<LeftPanelWindow>(null);
-
-		    _eventsManager.PublishEvent(new CreateGameEvent());
-        }
+		    _scoreWindow.Create();
+            _startWindow.Create();
+		    
+		    //_eventsManager.PublishEvent(new CreateGameEvent());
+		}
 
 		private void OnSceneClick(RaycastHit hit)
 		{

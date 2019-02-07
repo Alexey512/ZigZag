@@ -2,6 +2,7 @@
 using Assets.Scripts.Common.Behaviour;
 using Assets.Scripts.Common.Entity;
 using Assets.Scripts.Game.Actions;
+using Assets.Scripts.Game.Score;
 using Zenject;
 
 namespace Assets.Scripts.Game.Entity
@@ -9,10 +10,14 @@ namespace Assets.Scripts.Game.Entity
     public class Crystal : GameEntity
     {
         [Inject]
-        public new void Construct()
+        public new void Construct(IScoreManager scoreManager)
         {
             var createState = new Sequence(
                 new CheckCrystal(),
+                new CustomAction(c =>
+                {
+                    scoreManager.AddScore(1);
+                }),
                 new DestroyEntity()
             );
 

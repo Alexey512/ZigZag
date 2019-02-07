@@ -9,53 +9,42 @@ using UnityEngine;
 
 namespace Assets.Scripts.Game.UI
 {
-	public class UIManager: IUIManager
+	public class UIManager
 	{
 		private readonly IWindowRoot _root;
 
-		private readonly IWindowFactory _windowFactory;
+	    private IWindowController _current;
 
-		private readonly IEventsManager _publisher;
-
-		public UIManager(IWindowRoot root, IWindowFactory windowFactory, IEventsManager publisher)
+		public UIManager(IWindowRoot root)
 		{
-			_windowFactory = windowFactory;
-			_publisher = publisher;
 			_root = root;
 		}
 
-
-		//private readonly Stack<IWindowController> _windows = new Stack<IWindowController>();
-
-		private IWindowController _currentWindow;
-
-		public void ShowWindow<T>(CustomObject data) where T : class, IWindowController
+		public void AddWindow(IWindowController window)
 		{
-			var window = _windowFactory.CreateWindow<T>();
-			if (window == null)
-				return;
-
 			CloseWindow();
+            if (_current == window)
+                return;
 
-			IWindowContext context = new WindowContext(this, _publisher, data);
-			window.Initialize(context);
-			window.Owner.parent = _root.Root;
-			window.Owner.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-		}
+		    _current = window;
+		    //_current.Owner.parent = _root.Root;
+            //var rectTransform = _current.Owner.GetComponent<RectTransform>();
+		    //rectTransform.anchoredPosition = Vector2.zero;
+		    //rectTransform.localScale = Vector3.one;
+        }
 
-		public void CloseWindow(IWindowController window)
+		public void RemoveWindow(IWindowController window)
 		{
-
-		}
+		    if (_current == window)
+		    {
+		        _current.Hide();
+		    }
+        }
 
 		public void CloseWindow()
 		{
-			if (_currentWindow == null)
-				return;
-
-			//_currentWindow.Owner.transform.parent = null;
+		    _current?.Hide();
+		    _current = null;
 		}
-
-
 	}
 }

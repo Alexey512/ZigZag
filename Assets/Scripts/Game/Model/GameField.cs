@@ -11,14 +11,19 @@ namespace Assets.Scripts.Game.Model
 
         public FieldElement LastElement;
 
+        public Ball Ball;
+
         private IGameSettings _gameSettings;
 
         private FieldElement.Factory _elementsFactory;
 
-        public GameField(IGameSettings gameSettings, FieldElement.Factory elementsFactory)
+        private Ball.Factory _ballFactory;
+
+        public GameField(IGameSettings gameSettings, FieldElement.Factory elementsFactory, Ball.Factory ballFactory)
         {
             _gameSettings = gameSettings;
             _elementsFactory = elementsFactory;
+            _ballFactory = ballFactory;
         }
 
         public void CreateStart()
@@ -38,6 +43,11 @@ namespace Assets.Scripts.Game.Model
 
             LastElement = _elementsFactory.Create(new FieldCoords(startSize / 2, startSize));
             LastElement.Entity.Behaiour.SelectState(BehaiourState.Create);
+
+
+            Ball = _ballFactory.Create();
+            var c = startSize * tileSize / 2;
+            Ball.Position = new Vector3(c, 0.14f, c);
         }
 
         public void CreateNext()
@@ -61,6 +71,8 @@ namespace Assets.Scripts.Game.Model
             }
             Elements.Clear();
             LastElement = null;
+            Ball?.Destroy();
+            Ball = null;
         }
         
     }

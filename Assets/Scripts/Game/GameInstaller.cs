@@ -1,17 +1,16 @@
 ﻿using System;
 using Assets.Scripts.Common.Behaviour;
-using Assets.Scripts.Common.Commands;
-using Assets.Scripts.Common.EventAggregator;
 using Assets.Scripts.Common.UI;
-using Assets.Scripts.Game.Commands;
+using Assets.Scripts.Common.UI.Context;
 using Assets.Scripts.Game.Common;
 using Assets.Scripts.Game.Entity;
 using Assets.Scripts.Game.Events;
 using Assets.Scripts.Game.EventSystem;
 using Assets.Scripts.Game.Factory;
 using Assets.Scripts.Game.Model;
-using Assets.Scripts.Game.Navigation;
+using Assets.Scripts.Game.Score;
 using Assets.Scripts.Game.UI;
+using Assets.Scripts.Game.UI.Controller;
 using UnityEngine;
 using Zenject;
 using UnitsFactory = Assets.Scripts.Game.Units.UnitsFactory;
@@ -60,6 +59,12 @@ namespace Assets.Scripts.Game
 	    [SerializeField]
 	    private GameObject _crystalPrefab;
 
+	    [SerializeField]
+	    private GameObject _showWindowPrefab;
+
+	    [SerializeField]
+	    private GameObject _scoreWindowPrefab;
+
         public override void InstallBindings()
 		{
 			InstallEvents();
@@ -78,18 +83,29 @@ namespace Assets.Scripts.Game
 
             Container.Bind<IGameScene>().To<GameScene>().AsSingle();
 
-            Container.Bind<IWindowRoot>().To<WindowRoot>().FromInstance(_windowRoot);
-			Container.Bind<IWindowFactory>().To<WindowFactory>().FromInstance(_windowFactory);
-			Container.Bind<IUIManager>().To<UIManager>().AsSingle();
+		    Container.Bind<IScoreManager>().To<ScoreManager>().AsSingle();
 
-			Container.Bind<IEntityFactory>().To<EntityFactoryPool>().FromInstance(_entityFactory);
+            Container.Bind<IWindowRoot>().To<WindowRoot>().FromInstance(_windowRoot);
+            //Container.Bind<IWindowFactory>().To<WindowFactory>().FromInstance(_windowFactory);
+		    Container.Bind<IWindowContext>().To<WindowContext>().AsSingle();
+            Container.Bind<UIManager>().AsSingle();
+
+		    Container.BindFactory<StartWindow, StartWindow.Factory>()
+		        .FromPoolableMemoryPool<StartWindow, StartWindowPool>(poolBinder => poolBinder
+		             .FromComponentInNewPrefab(_showWindowPrefab)
+		             .UnderTransformGroup("Canvas")
+		        );
+
+		    Container.BindFactory<ScoreWindow, ScoreWindow.Factory>()
+		        .FromPoolableMemoryPool<ScoreWindow, ScoreWindowPool>(poolBinder => poolBinder
+		            .FromComponentInNewPrefab(_scoreWindowPrefab)
+		            .UnderTransformGroup("Canvas")
+		        );
+
+            Container.Bind<IEntityFactory>().To<EntityFactoryPool>().FromInstance(_entityFactory);
 
 			Container.Bind<IInputManager>().To<InputManager>().FromInstance(_inputManager);
 
-            //Container.Bind<ICommandsManager>().To<CommandsManager>().AsSingle();
-            //Container.Bind<IUnitCommandsStorage>().To<UnitCommandsStorage>().AsSingle();
-
-            //Container.Bind<IPathfinder>().To<Pathfinder>().AsSingle();
 
 		    Container.BindFactory<Tile, Tile.Factory>()
 		        .FromPoolableMemoryPool<Tile, TilePool>(poolBinder => poolBinder
@@ -133,7 +149,10 @@ namespace Assets.Scripts.Game
 
 		    Container.Bind<CreateGameEvent>().AsSingle();
 		    Container.Bind<CreateGameEvent.IEventHandler>().To<CreateGameHandler>().AsSingle();
-            
+
+		    Container.Bind<StartGameEvent>().AsSingle();
+		    Container.Bind<StartGameEvent.IEventHandler>().To<StartGameHandler>().AsSingle();
+
 
             /*Container.Bind<IPublisher>().To<Publisher>().AsSingle();
 			Container.Bind<ISubscriber>().To<EventAggregator>().AsSingle();
@@ -173,6 +192,14 @@ namespace Assets.Scripts.Game
     }
 
     class FieldElementPool : PoolableMemoryPool<FieldCoords, IMemoryPool, FieldElement>
+    {
+    }
+
+    class StartWindowPool : MonoPoolableMemoryPool<IMemoryPool, StartWindow>
+    {
+    }
+
+    class ScoreWindowPool: MonoPoolableMemoryPool<IMemoryPool, ScoreWindow>
     {
     }
 }

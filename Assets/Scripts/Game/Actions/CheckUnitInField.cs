@@ -19,7 +19,7 @@ namespace Assets.Scripts.Game.Actions
         {
             if (!Physics.Raycast(_entity.Position, Vector3.down))
             {
-                End(ActionStatus.Failure);
+                End(ActionStatus.Success);
             }
         }
 
