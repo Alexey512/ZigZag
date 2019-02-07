@@ -1,34 +1,34 @@
-﻿using Game.Objects.Logic;
+﻿using Assets.Scripts.Common.Actions;
+using Game.Objects.Logic;
+using UnityEngine;
 
 namespace Game.Objects.Logics
 {
-	/*public class WaitForSecondAction : LogicAction
+	public class WaitForSecondAction : GameTask
 	{
 		private float _delay;
 
-		public WaitForSecondAction(float delay)
+	    private float _leftTime;
+
+        public WaitForSecondAction(float delay)
 		{
 			_delay = delay;
 		}
 
 		protected override void OnStart()
 		{
-			StartUpdate(0, _delay);
+		    _leftTime = _delay;
 		}
 
 		protected override void OnUpdate()
 		{
-			End();
+		    if (_leftTime < 0)
+		    {
+                End(ActionStatus.Success);
+                return;
+		    }
+
+		    _leftTime -= Time.deltaTime;
 		}
-
-		protected override void OnStop()
-		{
-
-		}
-
-		protected override void OnEnd()
-		{
-
-		}
-	}*/
+	}
 }

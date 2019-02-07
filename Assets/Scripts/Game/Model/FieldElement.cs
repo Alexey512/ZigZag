@@ -57,6 +57,7 @@ namespace Assets.Scripts.Game.Model
             {
                 _crystal = _crystalFactory.Create();
                 _crystal.Position = new Vector3(coords.X * tileSize + Random.value * tileSize, 0, coords.Y * tileSize + Random.value * tileSize);
+                //_crystal.Owner.transform.parent = Entity.Owner.transform;
             }
 
             _field.Elements.Add(this);

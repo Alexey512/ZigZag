@@ -12,6 +12,8 @@ namespace Assets.Scripts.Game.Score
 
         int GetBestScore();
 
+        int GetLastScore();
+
         void Finish();
 
         void Clear();

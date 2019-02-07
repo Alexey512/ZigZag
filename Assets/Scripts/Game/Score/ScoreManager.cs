@@ -8,6 +8,8 @@ namespace Assets.Scripts.Game.Score
 
         private int _curScore;
 
+        private int _lastScore;
+
         private int _bestScore;
 
         public void AddScore(int score)
@@ -26,6 +28,11 @@ namespace Assets.Scripts.Game.Score
             return _bestScore;
         }
 
+        public int GetLastScore()
+        {
+            return _lastScore;
+        }
+
         public void Finish()
         {
             if (_curScore > _bestScore)
@@ -33,6 +40,7 @@ namespace Assets.Scripts.Game.Score
                 _bestScore = _curScore;
             }
 
+            _lastScore = _curScore;
             _curScore = 0;
             ScoreChanged?.Invoke(this);
         }
