@@ -27,7 +27,7 @@ namespace Assets.Scripts.Game.Entity
                 new WaitForSecondAction(0.15f),
                 new CustomAction(c =>
                 {
-                    _animator.SetBool("Destroy", true);
+                    _animator?.SetBool("Destroy", true);
                 }),
                 new WaitForSecondAction(1.0f),
                 new DestroyTile(field)
@@ -43,8 +43,8 @@ namespace Assets.Scripts.Game.Entity
             var context = Behaiour.Context;
             context.SetValue(ActionConsts.Unit, this);
 
-            _animator.SetBool("Destroy", false);
-            _animator.Play("Idle");
+            _animator?.SetBool("Destroy", false);
+            _animator?.Play("Idle");
 
             //_behaiour.SelectState(BehaiourState.Create);
         }
@@ -53,7 +53,7 @@ namespace Assets.Scripts.Game.Entity
         {
             base.Disable();
 
-            _animator.SetBool("Destroy", false);
+            _animator?.SetBool("Destroy", false);
         }
 
         public class Factory : PlaceholderFactory<Tile>
